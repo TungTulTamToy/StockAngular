@@ -25,15 +25,11 @@ const FILTERS: IFilter[] = [
 export class StockViewComponent implements OnInit {
   title = 'Stock Web Viewer';
   filters: IFilter[] = FILTERS;
-  stockData: any;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() { 
   }
 
-  onChangeGroup(stockData:any){
-    this.stockData = stockData;
+  ngOnInit() {
   }
 
 }

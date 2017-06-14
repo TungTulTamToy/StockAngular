@@ -7,11 +7,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { SearchPanelComponent } from './components/search-panel/search-panel.component';
 import { StockGridComponent } from './components/stock-grid/stock-grid.component';
-import { GroupService } from "app/services/group-service/group.service";
+import { StockService } from "app/services/stock-service/stock.service";
 import { SafeNumberPipe } from "app/pipes/safe-number/safe-number.pipe";
 import { DecimalPipe } from "@angular/common";
 import { StockViewComponent } from './components/stock-view/stock-view.component';
 import { PageNotFoundComponent } from './components/not-found/not-found.component';
+import { StockNotificationService } from "app/services/stock-notification/stock-notification.service";
 
 const appRoutes: Routes = [
   { path: 'view', component: StockViewComponent },
@@ -35,7 +36,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [GroupService,DecimalPipe],
+  providers: [StockNotificationService,StockService,DecimalPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

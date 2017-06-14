@@ -1,19 +1,23 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { DecimalPipe } from "@angular/common";
 
 import { ICheckBoxFilter } from "app/entities/iFilter";
 import { BaseStockGridComponent } from "app/components/stock-grid/base-stock-grid.component";
+import { Subscription } from "rxjs/Subscription";
+import { StockNotificationService } from "app/services/stock-notification/stock-notification.service";
 
 @Component({
   selector: 'app-stock-grid',
   templateUrl: './stock-grid.component.html',
   styleUrls: ['./stock-grid.component.css']
 })
-export class StockGridComponent extends BaseStockGridComponent {
-  @Input() StockData: any;
+export class StockGridComponent extends BaseStockGridComponent implements OnDestroy {
+  subscription: Subscription;
+  StockData: any;
 
-  constructor(private decimalPipe: DecimalPipe) {
+  constructor(private decimalPipe: DecimalPipe, private stockNotificationService: StockNotificationService) {
     super(decimalPipe);
+    this.subscription = this.stockNotificationService.GetObservable().subscribe(data => { this.StockData = data; });
   }
 
   isShow(filterName:string):boolean{
@@ -46,6 +50,10 @@ export class StockGridComponent extends BaseStockGridComponent {
 
   getDisplayNumberOfYear():number{
     return this.baseGetDisplayNumberOfYear();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }

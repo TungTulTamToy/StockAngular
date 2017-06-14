@@ -3,7 +3,7 @@ import { Http } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class GroupService {
+export class StockService {
   private baseUrl: string = 'http://localhost:5200/api/Group';
 
   constructor(private http : Http) { }
