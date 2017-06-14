@@ -1,15 +1,12 @@
-import { OnInit, Input } from '@angular/core';
+import { Input } from '@angular/core';
 import { DecimalPipe } from "@angular/common";
 
 import { IFilter, ISelectValueFilter } from "app/entities/iFilter";
 
-export class BaseStockGridComponent implements OnInit {
+export class BaseStockGridComponent {
   @Input() Filters: IFilter[];
 
   constructor(private baseDecimalPipe: DecimalPipe) { }
-
-  ngOnInit() {
-  }
 
   baseFindItem<TObject>(items:TObject[],callback:(item:TObject)=>boolean):TObject{
     let result:TObject = null;

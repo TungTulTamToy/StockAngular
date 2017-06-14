@@ -2,24 +2,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule, Routes } from '@angular/router';
+import { DecimalPipe } from "@angular/common";
 
 import { AppComponent } from './app.component';
 import { SearchPanelComponent } from './components/search-panel/search-panel.component';
 import { StockGridComponent } from './components/stock-grid/stock-grid.component';
-import { StockService } from "app/services/stock-service/stock.service";
-import { SafeNumberPipe } from "app/pipes/safe-number/safe-number.pipe";
-import { DecimalPipe } from "@angular/common";
+import { StockService } from "./services/stock-service/stock.service";
+import { SafeNumberPipe } from "./pipes/safe-number/safe-number.pipe";
 import { StockViewComponent } from './components/stock-view/stock-view.component';
 import { PageNotFoundComponent } from './components/not-found/not-found.component';
-import { StockNotificationService } from "app/services/stock-notification/stock-notification.service";
-
-const appRoutes: Routes = [
-  { path: 'view', component: StockViewComponent },
-  { path: 'about', component: PageNotFoundComponent },
-  { path: '',   redirectTo: '/view', pathMatch: 'full' },
-  { path: '**', component: PageNotFoundComponent }
-];
+import { StockNotificationService } from "./services/stock-notification/stock-notification.service";
+import { AppRoutingModule } from "./modules/app-routing/app-routing.module";
 
 @NgModule({
   declarations: [
@@ -34,7 +27,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
   providers: [StockNotificationService,StockService,DecimalPipe],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { DecimalPipe } from "@angular/common";
 
 import { ICheckBoxFilter } from "app/entities/iFilter";

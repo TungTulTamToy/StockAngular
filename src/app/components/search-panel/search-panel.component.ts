@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IFilter } from "app/entities/iFilter";
 import { CheckBoxFilter, SelectValueFilter } from "app/entities/filter";
 import { StockService } from "app/services/stock-service/stock.service";
-import { Subscription } from "rxjs/Subscription";
 import { StockNotificationService } from "app/services/stock-notification/stock-notification.service";
 
 @Component({
@@ -22,11 +21,10 @@ export class SearchPanelComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     let groupsTask = this.stockService.GetGroups();
-    let stocksByGroupTask = this.stockService.GetStocksByGroup(this.selectedGroup);
+    let stocksByGroupTask = this.updateStockByGroup();
 
     this.groups = await groupsTask;
     this.stockData = await stocksByGroupTask;
-    this.stockNotificationService.Notify(this.stockData);
   }
 
   async updateStockByGroup():Promise<void> {

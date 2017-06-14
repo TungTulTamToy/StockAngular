@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IFilter } from "app/entities/iFilter";
 import { CheckBoxFilter, SelectValueFilter } from "app/entities/filter";
 
@@ -22,14 +22,11 @@ const FILTERS: IFilter[] = [
   templateUrl: './stock-view.component.html',
   styleUrls: ['./stock-view.component.css']
 })
-export class StockViewComponent implements OnInit {
+export class StockViewComponent {
   title = 'Stock Web Viewer';
   filters: IFilter[] = FILTERS;
 
   constructor() { 
-  }
-
-  ngOnInit() {
   }
 
 }
