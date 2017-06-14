@@ -1,0 +1,153 @@
+<div class="panel panel-default">
+    <div class="panel-body table-responsive">
+      <table *ngIf="StockData != null && StockData.stockCollection != null" class="table">
+          <thead>
+              <tr>
+                <th>Quote</th>
+                <ng-container *ngIf="isShow('PE')">
+                    <template ngFor let-p [ngForOf]="getYearsHeader(StockData.stockSummary.peYear.min,StockData.stockSummary.peYear.max)" let-i="index">
+                        <th [ngClass]="{'borderLeft':i==0,'borderRight':i==getDisplayNumberOfYear()-1}">PE {{p}}</th>
+                    </template>
+                </ng-container>
+                <ng-container *ngIf="isShow('NetProfit')">
+                    <template ngFor let-n [ngForOf]="getYearsHeader(StockData.stockSummary.netProfitYear.min,StockData.stockSummary.netProfitYear.max)" let-i="index">
+                        <th [ngClass]="{'borderLeft':i==0,'borderRight':i==getDisplayNumberOfYear()-1}">N {{n}}</th>
+                    </template>
+                </ng-container>
+                <ng-container *ngIf="isShow('Growth')">
+                    <template ngFor let-g [ngForOf]="getYearsHeader(StockData.stockSummary.growthYear.min,StockData.stockSummary.growthYear.max)" let-i="index">
+                        <th [ngClass]="{'borderLeft':i==0,'borderRight':i==getDisplayNumberOfYear()-1}">G {{g}}</th>
+                    </template>
+                </ng-container>
+                <ng-container *ngIf="isShow('PEG')">
+                    <template ngFor let-peg [ngForOf]="getYearsHeader(StockData.stockSummary.pegYear.min,StockData.stockSummary.pegYear.max)" let-i="index">
+                        <th [ngClass]="{'borderLeft':i==0,'borderRight':i==getDisplayNumberOfYear()-1}">PEG {{peg}}</th>
+                    </template>
+                </ng-container>
+                <ng-container *ngIf="isShow('PE Diff Percentage')">
+                    <template ngFor let-p [ngForOf]="getYearsHeader(StockData.stockSummary.peDiffYear.min,StockData.stockSummary.peDiffYear.max)" let-i="index">
+                        <th [ngClass]="{'borderLeft':i==0,'borderRight':i==getDisplayNumberOfYear()-1}">PE diff {{p}}</th>
+                    </template>
+                </ng-container>
+                <th *ngIf="isShow('Last Price')">Last</th>
+                <th *ngIf="isShow('3M Price Calculation')" class="borderLeft">Avg 3M</th>
+                <th *ngIf="isShow('3M Price Calculation')">Diff Max 3M</th>
+                <th *ngIf="isShow('3M Price Calculation')">Diff Avg 3M</th>
+                <th *ngIf="isShow('3M Price Calculation')" class="borderRight">Diff Min 3M</th>
+                <th *ngIf="isShow('6M Price Calculation')" class="borderLeft">Avg 6M</th>
+                <th *ngIf="isShow('6M Price Calculation')">Diff Max 6M</th>
+                <th *ngIf="isShow('6M Price Calculation')">Diff Avg 6M</th>
+                <th *ngIf="isShow('6M Price Calculation')" class="borderRight">Diff Min 6M</th>
+                <th *ngIf="isShow('1Y Price Calculation')" class="borderLeft">Avg 1Y</th>
+                <th *ngIf="isShow('1Y Price Calculation')">Diff Max 1Y</th>
+                <th *ngIf="isShow('1Y Price Calculation')">Diff Avg 1Y</th>
+                <th *ngIf="isShow('1Y Price Calculation')" class="borderRight">Diff Min 1Y</th>
+                <th *ngIf="isShow('MACD')">MACD</th>
+                <th *ngIf="isShow('MACD')">Signal</th>
+                <th *ngIf="isShow('MACD')" class="borderRight">Hist</th>
+                <th *ngIf="isShow('Port Cal')" class="borderLeft">Min Port</th>
+                <th *ngIf="isShow('Port Cal')" class="borderRight">Max Port</th>
+                <th>Quote</th>
+              </tr>
+          </thead>
+          <tfoot>
+              <tr>
+                <th>Quote</th>
+                <ng-container *ngIf="isShow('PE')">
+                    <template ngFor let-p [ngForOf]="getYearsHeader(StockData.stockSummary.peYear.min,StockData.stockSummary.peYear.max)" let-i="index">
+                        <th [ngClass]="{'borderLeft':i==0,'borderRight':i==getDisplayNumberOfYear()-1}">PE {{p}}</th>
+                    </template>
+                </ng-container>
+                <ng-container *ngIf="isShow('NetProfit')">
+                    <template ngFor let-n [ngForOf]="getYearsHeader(StockData.stockSummary.netProfitYear.min,StockData.stockSummary.netProfitYear.max)" let-i="index">
+                        <th [ngClass]="{'borderLeft':i==0,'borderRight':i==getDisplayNumberOfYear()-1}">N {{n}}</th>
+                    </template>
+                </ng-container>
+                <ng-container *ngIf="isShow('Growth')">
+                    <template ngFor let-g [ngForOf]="getYearsHeader(StockData.stockSummary.growthYear.min,StockData.stockSummary.growthYear.max)" let-i="index">
+                        <th [ngClass]="{'borderLeft':i==0,'borderRight':i==getDisplayNumberOfYear()-1}">G {{g}}</th>
+                    </template>
+                </ng-container>
+                <ng-container *ngIf="isShow('PEG')">
+                    <template ngFor let-peg [ngForOf]="getYearsHeader(StockData.stockSummary.pegYear.min,StockData.stockSummary.pegYear.max)" let-i="index">
+                        <th [ngClass]="{'borderLeft':i==0,'borderRight':i==getDisplayNumberOfYear()-1}">PEG {{peg}}</th>
+                    </template>
+                </ng-container>
+                <ng-container *ngIf="isShow('PE Diff Percentage')">
+                    <template ngFor let-p [ngForOf]="getYearsHeader(StockData.stockSummary.peDiffYear.min,StockData.stockSummary.peDiffYear.max)" let-i="index">
+                        <th [ngClass]="{'borderLeft':i==0,'borderRight':i==getDisplayNumberOfYear()-1}">PE diff {{p}}</th>
+                    </template>
+                </ng-container>
+                <th *ngIf="isShow('Last Price')">Last</th>
+                <th *ngIf="isShow('3M Price Calculation')" class="borderLeft">Avg 3M</th>
+                <th *ngIf="isShow('3M Price Calculation')">Diff Max 3M</th>
+                <th *ngIf="isShow('3M Price Calculation')">Diff Avg 3M</th>
+                <th *ngIf="isShow('3M Price Calculation')" class="borderRight">Diff Min 3M</th>
+                <th *ngIf="isShow('6M Price Calculation')" class="borderLeft">Avg 6M</th>
+                <th *ngIf="isShow('6M Price Calculation')">Diff Max 6M</th>
+                <th *ngIf="isShow('6M Price Calculation')">Diff Avg 6M</th>
+                <th *ngIf="isShow('6M Price Calculation')" class="borderRight">Diff Min 6M</th>
+                <th *ngIf="isShow('1Y Price Calculation')" class="borderLeft">Avg 1Y</th>
+                <th *ngIf="isShow('1Y Price Calculation')">Diff Max 1Y</th>
+                <th *ngIf="isShow('1Y Price Calculation')">Diff Avg 1Y</th>
+                <th *ngIf="isShow('1Y Price Calculation')" class="borderRight">Diff Min 1Y</th>
+                <th *ngIf="isShow('MACD')">MACD</th>
+                <th *ngIf="isShow('MACD')">Signal</th>
+                <th *ngIf="isShow('MACD')" class="borderRight">Hist</th>
+                <th *ngIf="isShow('Port Cal')" class="borderLeft">Min Port</th>
+                <th *ngIf="isShow('Port Cal')" class="borderRight">Max Port</th>
+                <th>Quote</th>
+              </tr>
+          </tfoot>
+          <tbody>
+            <tr *ngFor="let data of StockData.stockCollection; let even=even;" [ngClass]="{ even: even }">
+                <td class="text-uppercase">{{data.quote}}</td>
+                <ng-container *ngIf="isShow('PE')">
+                    <template ngFor let-p [ngForOf]="getItemsOfEachYear(data.pe,StockData.stockSummary.peYear.min,StockData.stockSummary.peYear.max)" let-i="index">
+                        <td [ngClass]="{'pink':p<=0,'green':p>0&&p<=10,'blue':p>10&&p<=15,'red':p>15,'borderLeft':i==0,'borderRight':i==getDisplayNumberOfYear()-1}">{{p}}</td>
+                    </template>
+                </ng-container>
+                <ng-container *ngIf="isShow('NetProfit')">
+                    <template ngFor let-n [ngForOf]="getItemsOfEachYear(data.netProfit,StockData.stockSummary.netProfitYear.min,StockData.stockSummary.netProfitYear.max)" let-i="index">
+                        <td [ngClass]="{'borderLeft':i==0,'borderRight':i==getDisplayNumberOfYear()-1}">{{n}}</td>
+                    </template>
+                </ng-container>
+                <ng-container *ngIf="isShow('Growth')">
+                    <template ngFor let-g [ngForOf]="getItemsOfEachYear(data.growth,StockData.stockSummary.growthYear.min,StockData.stockSummary.growthYear.max)" let-i="index">
+                        <td [ngClass]="{'pink':g<=0,'green':g>0&&g<=10,'blue':g>10&&g<=15,'red':g>15,'borderLeft':i==0,'borderRight':i==getDisplayNumberOfYear()-1}">{{g}}</td>
+                    </template>
+                </ng-container>
+                <ng-container *ngIf="isShow('PEG')">
+                    <template ngFor let-peg [ngForOf]="getItemsOfEachYear(data.peg,StockData.stockSummary.pegYear.min,StockData.stockSummary.pegYear.max)" let-i="index">
+                        <td [ngClass]="{'pink':peg<=0,'blue':peg>0&&peg<=0.5,'green':peg>0.5&&peg<=1,'red':peg>1,'borderLeft':i==0,'borderRight':i==getDisplayNumberOfYear()-1}">{{peg}}</td>
+                    </template>
+                </ng-container>
+                <ng-container *ngIf="isShow('PE Diff Percentage')">
+                    <template ngFor let-p [ngForOf]="getItemsOfEachYear(data.peDiffPercent,StockData.stockSummary.peDiffYear.min,StockData.stockSummary.peDiffYear.max)" let-i="index">
+                        <td [ngClass]="{'pink':p<=0,'green':p>0&&p<=20,'blue':p>20,'borderLeft':i==0,'borderRight':i==getDisplayNumberOfYear()-1}">{{p}}</td>
+                    </template>
+                </ng-container>
+                <td *ngIf="isShow('Last Price')">{{getPriceCal(data,'6M','last')}}</td>
+                <td *ngIf="isShow('3M Price Calculation')" class="borderLeft">{{getPriceCal(data,'3M','avg')}}</td>
+                <td *ngIf="isShow('3M Price Calculation')">{{getPriceCal(data,'3M','diffMax')}}%</td>
+                <td *ngIf="isShow('3M Price Calculation')" [ngClass]="determineColor(data,'3M','diffAvg',[0,5,10],['pink','black','green','blue'])">{{getPriceCal(data,'3M','diffAvg')}}%</td>
+                <td *ngIf="isShow('3M Price Calculation')" [ngClass]="determineColor(data,'3M','diffMin',[-20,-10,-5],['pink','black','green','blue'])" class="borderRight">{{getPriceCal(data,'3M','diffMin')}}%</td>
+                <td *ngIf="isShow('6M Price Calculation')" class="borderLeft">{{getPriceCal(data,'6M','avg')}}</td>
+                <td *ngIf="isShow('6M Price Calculation')">{{getPriceCal(data,'6M','diffMax')}}%</td>
+                <td *ngIf="isShow('6M Price Calculation')" [ngClass]="determineColor(data,'6M','diffAvg',[0,5,10],['pink','black','green','blue'])">{{getPriceCal(data,'6M','diffAvg')}}%</td>
+                <td *ngIf="isShow('6M Price Calculation')" [ngClass]="determineColor(data,'6M','diffMin',[-20,-10,-5],['pink','black','green','blue'])" class="borderRight">{{getPriceCal(data,'6M','diffMin')}}%</td>
+                <td *ngIf="isShow('1Y Price Calculation')" class="borderLeft">{{getPriceCal(data,'1Y','avg')}}</td>
+                <td *ngIf="isShow('1Y Price Calculation')">{{getPriceCal(data,'1Y','diffMax')}}%</td>
+                <td *ngIf="isShow('1Y Price Calculation')" [ngClass]="determineColor(data,'1Y','diffAvg',[0,5,10],['pink','black','green','blue'])">{{getPriceCal(data,'1Y','diffAvg')}}%</td>
+                <td *ngIf="isShow('1Y Price Calculation')" [ngClass]="determineColor(data,'1Y','diffMin',[-20,-10,-5],['pink','black','green','blue'])" class="borderRight">{{getPriceCal(data,'1Y','diffMin')}}%</td>
+                <td *ngIf="isShow('MACD')">{{data.movingAverage.macd|number:'1.2-2'}}</td>
+                <td *ngIf="isShow('MACD')">{{data.movingAverage.signal|number:'1.2-2'}}</td>
+                <td *ngIf="isShow('MACD')" [ngClass]="{'red':data.movingAverage.hist<0,'green':data.movingAverage.hist>0}" class="borderRight">{{data.movingAverage.hist|number:'1.2-2'}}</td>
+                <td *ngIf="isShow('Port Cal')" class="borderLeft">{{(data.portCal) ? (data.portCal.minPriceDiffPercent|number:'1.2-2')+'%':"-"}}</td>
+                <td *ngIf="isShow('Port Cal')" class="borderRight">{{(data.portCal) ? (data.portCal.maxPriceDiffPercent|number:'1.2-2')+'%':"-"}}</td>
+                <td class="text-uppercase">{{data.quote}}</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+</div>

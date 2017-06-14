@@ -1,1 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
+.even {
+    background-color: #f9f9f9;;
+}
+.row10 {
+    margin-top:10px;
+}
+.red{
+    color:black;
+    background-color:red;
+}
+.blue{
+    color:black;
+    background-color:lightblue;
+}
+.green{
+    color:black;
+    background-color:lightgreen;
+}
+.black{
+    color:black;
+}
+.pink{
+    color:black;
+    background-color:pink;
+}
+.table-bordered {
+  border: 1px solid #ddd;
+}
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td {
+  border: 1px solid #ddd;
+}
+.table-bordered > thead > tr > th,
+.table-bordered > thead > tr > td {
+  border-bottom-width: 2px;
+}
+.borderLeft{
+    border-left: 1px solid #000;
+}
+.borderRight{
+    border-right: 1px solid #000;
+}

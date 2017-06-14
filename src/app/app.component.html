@@ -1,3 +1,12 @@
-<h1>
-  {{title}}
-</h1>
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">My Stocks</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active"><a routerLink="/view" >View</a></li>
+        <li routerLinkActive="active"><a routerLink="/about" >About</a></li>
+      </ul>
+    </div>
+  </nav>
+  <router-outlet></router-outlet>
