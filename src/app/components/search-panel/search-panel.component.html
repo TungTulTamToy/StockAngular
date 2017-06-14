@@ -1,0 +1,37 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Search criteria
+    </div>
+    <div class="panel-body">
+        <div class="row form-inline">
+            <span class="col-md-2">Select group</span>
+            <select [(ngModel)]="selectedGroup" (change)="updateStockByGroup()" class="col-md-2 btn btn-default text-capitalize">
+                <option *ngFor="let group of groups" [value]="group">{{group}}</option>
+            </select>
+            <template ngFor let-filter [ngForOf]="Filters" let-i="index">
+                <ng-container *ngIf="isSelectValueFilter(filter)">
+                    <span class="col-md-offset-1 col-md-2">{{filter.FilterName}}</span>
+                    <select [(ngModel)]="filter.SelectedValue" class="col-md-2 btn btn-default">
+                        <option *ngFor="let year of filter.FilterValue" [ngValue]="year">{{year}}</option>
+                    </select>
+                </ng-container>
+            </template>
+        </div>
+        <div class="row row10">
+            <div class="col-md-2">
+                <span>Filter</span>
+            </div>
+            <div class="col-md-10 checkbox">
+                <template ngFor let-filter [ngForOf]="Filters" let-i="index">
+                    <ng-container *ngIf="i % numberOfFilterColumns == 0">
+                        <div class="row row10">
+                            <template ngFor let-subFilter [ngForOf]="Filters|slice:i:i+numberOfFilterColumns" let-j="index">
+                                <label *ngIf="j < numberOfFilterColumns && isCheckBoxFilter(subFilter)" class="col-md-2 checkbox-inline no_indent"><input type="checkbox" [(ngModel)]="subFilter.FilterVisible" />{{subFilter.FilterName}}</label>
+                            </template>
+                        </div>
+                    </ng-container>
+                </template>
+            </div>
+        </div>
+    </div>
+</div>

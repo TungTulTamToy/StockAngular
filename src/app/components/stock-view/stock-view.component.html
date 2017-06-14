@@ -1,0 +1,17 @@
+<div class="container-fluid">
+  <!--div class="row">
+    <h1 class="text-center">
+      {{title}}
+    </h1>
+  </div-->
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+      <app-search-panel [Filters]="filters" (OnChangeGroup)="onChangeGroup($event)">Loading search panel...</app-search-panel>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+      <app-stock-grid [Filters]="filters" [StockData]="stockData">Loading grid...</app-stock-grid>
+    </div>
+  </div>
+</div>
