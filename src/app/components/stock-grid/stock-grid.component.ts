@@ -1,7 +1,7 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Input } from '@angular/core';
 import { DecimalPipe } from "@angular/common";
 
-import { ICheckBoxFilter } from "app/entities/iFilter";
+import { ICheckBoxFilter, IFilter, ISelectValueFilter } from "app/entities/iFilter";
 import { BaseStockGridComponent } from "app/components/stock-grid/base-stock-grid.component";
 import { Subscription } from "rxjs/Subscription";
 import { StockNotificationService } from "app/services/stock-notification/stock-notification.service";
@@ -12,6 +12,8 @@ import { StockNotificationService } from "app/services/stock-notification/stock-
   styleUrls: ['./stock-grid.component.css']
 })
 export class StockGridComponent extends BaseStockGridComponent implements OnDestroy {
+  @Input() Filters: IFilter[];
+  
   subscription: Subscription;
   StockData: any;
 
@@ -20,16 +22,20 @@ export class StockGridComponent extends BaseStockGridComponent implements OnDest
     this.subscription = this.stockNotificationService.GetObservable().subscribe(data => { this.StockData = data; });
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   isShow(filterName:string):boolean{
-    return this.baseGetFilterValue(false,filterName,(f)=>(<ICheckBoxFilter>f).FilterVisible);
+    return this.getFilterValue(false,filterName,(f)=>(<ICheckBoxFilter>f).FilterVisible);
   }
 
   getYearsHeader(minYear:number, maxYear:number):Array<number>{
-    return this.baseMakeYearRangeWithItems(minYear,maxYear,(y)=>y);
+    return this.makeYearRangeWithItems(minYear,maxYear,(y)=>y);
   }
 
   getItemsOfEachYear(inputItems:any, minYear:number, maxYear:number):Array<string>{
-    return this.baseMakeYearRangeWithItems(minYear,maxYear,(y)=>this.baseGetNumberToDisplay(inputItems,'year',y,'value'));
+    return this.makeYearRangeWithItems(minYear,maxYear,(y)=>this.baseGetNumberToDisplay(inputItems,'year',y,'value'));
   }
 
   getPriceCal(data:any, keyValue:string, propertyName:string):string{
@@ -48,12 +54,32 @@ export class StockGridComponent extends BaseStockGridComponent implements OnDest
     return color;
   }
 
-  getDisplayNumberOfYear():number{
-    return this.baseGetDisplayNumberOfYear();
+  getFilterValue<TResult>(defaultValue:TResult,filterName:string,callback:(filter:IFilter)=>TResult):TResult{
+    let value:TResult = defaultValue;
+    let filter:IFilter = this.baseFindItem(this.Filters,f=>f.FilterName==filterName);
+    if(filter!=null)
+    {
+      value = callback(filter);
+    }
+    return value;
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+  getDisplayNumberOfYear():number{
+    return this.getFilterValue(3,'Number of year',(f)=>(<ISelectValueFilter>f).SelectedValue);
+  }
+
+  makeYearRangeWithItems<TResult>(minYear:number,maxYear:number,callback:(currentYear:number)=>TResult):Array<TResult>{
+    let items = new Array<TResult>();
+    let currentYear:number = maxYear;
+    let numberOfYear:number = this.getDisplayNumberOfYear();
+    while (currentYear >= minYear) {
+        items.push(callback(currentYear));
+        if (items.length >= numberOfYear){
+            break;
+        }
+        currentYear--;
+    }
+    return items;
   }
 
 }
